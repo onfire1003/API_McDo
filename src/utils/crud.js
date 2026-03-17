@@ -25,13 +25,11 @@ A model must contain:
 - remove(id)
 */
 
-
 // ------------------------------------------------------------
 // Check if the model has everything required
 // ------------------------------------------------------------
 
 function checkModel(model) {
-
     // Check if the model exists
     if (!model) {
         throw new Error('Model manquant');
@@ -72,7 +70,6 @@ function checkModel(model) {
 // ------------------------------------------------------------
 
 function filterAllowedFields(data, allowedFields = []) {
-
     // If data is invalid, return an empty object
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
         return {};
@@ -86,7 +83,6 @@ function filterAllowedFields(data, allowedFields = []) {
             filteredData[field] = data[field];
         }
     }
-
     return filteredData;
 }
 
@@ -96,7 +92,6 @@ function filterAllowedFields(data, allowedFields = []) {
 // ------------------------------------------------------------
 
 function isAllowedField(model, field) {
-
     // Field must exist
     if (!field) return false;
 
@@ -115,7 +110,6 @@ function isAllowedField(model, field) {
 // ------------------------------------------------------------
 
 async function create(model, data) {
-
     // Verify model structure
     checkModel(model);
 
@@ -126,14 +120,10 @@ async function create(model, data) {
     if (Object.keys(filteredData).length === 0) {
         throw new Error('Aucune donnée valide à insérer');
     }
-
     try {
-
         // Call model create method
         return await model.create(filteredData);
-
     } catch (err) {
-
         // Catch database errors
         throw new Error(`Erreur lors de la création : ${err.message}`);
     }
@@ -146,16 +136,11 @@ async function create(model, data) {
 // ------------------------------------------------------------
 
 async function getAll(model) {
-
     checkModel(model);
-
     try {
-
         // Return all records
         return await model.findAll();
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la récupération des données : ${err.message}`);
     }
 }
@@ -167,21 +152,15 @@ async function getAll(model) {
 // ------------------------------------------------------------
 
 async function getById(model, id) {
-
     checkModel(model);
-
     // Validate id
     if (id === undefined || id === null || id === '') {
         throw new Error('Identifiant manquant');
     }
-
     try {
-
         // Call model method
         return await model.findById(id);
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la récupération par ID : ${err.message}`);
     }
 }
@@ -193,21 +172,15 @@ async function getById(model, id) {
 // ------------------------------------------------------------
 
 async function getOneBy(model, field, value) {
-
     checkModel(model);
-
     // Verify the field is allowed
     if (!isAllowedField(model, field)) {
         throw new Error(`Champ non autorisé : ${field}`);
     }
-
     try {
-
         // Call model search function
         return await model.findOneBy(field, value);
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la recherche : ${err.message}`);
     }
 }
@@ -219,21 +192,15 @@ async function getOneBy(model, field, value) {
 // ------------------------------------------------------------
 
 async function searchBy(model, field, value) {
-
     checkModel(model);
-
     // Verify field is allowed
     if (!isAllowedField(model, field)) {
         throw new Error(`Champ non autorisé : ${field}`);
     }
-
     try {
-
         // Call model search
         return await model.searchBy(field, value);
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la recherche : ${err.message}`);
     }
 }
@@ -245,9 +212,7 @@ async function searchBy(model, field, value) {
 // ------------------------------------------------------------
 
 async function update(model, id, data) {
-
     checkModel(model);
-
     // Validate id
     if (id === undefined || id === null || id === '') {
         throw new Error('Identifiant manquant');
@@ -262,19 +227,14 @@ async function update(model, id, data) {
     }
 
     try {
-
         // Check if the object exists
         const existingObject = await model.findById(id);
-
         if (!existingObject) {
             return null;
         }
-
         // Update the object
         return await model.update(id, filteredData);
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la mise à jour : ${err.message}`);
     }
 }
@@ -286,28 +246,20 @@ async function update(model, id, data) {
 // ------------------------------------------------------------
 
 async function remove(model, id) {
-
     checkModel(model);
-
     // Validate id
     if (id === undefined || id === null || id === '') {
         throw new Error('Identifiant manquant');
     }
-
     try {
-
         // Check if object exists before deleting
         const existingObject = await model.findById(id);
-
         if (!existingObject) {
             return false;
         }
-
         // Delete the object
         return await model.remove(id);
-
     } catch (err) {
-
         throw new Error(`Erreur lors de la suppression : ${err.message}`);
     }
 }

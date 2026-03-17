@@ -1,21 +1,12 @@
 /*
-
 -----------------------------------------------------------------------------------------------------------------------
-
 nom du fichier      :   create_database_insert_data.sql
-
 auteur              :   Joel Cunha Faria
-
 collaborateurs      :   Jason Edmonds, Samuel Theytaz
-
 date de création    :   04.03.2026
-
 date de modification:   12.03.2026
-
 version             :   1.1
-
 -----------------------------------------------------------------------------------------------------------------------
-
 */
 
 DROP
@@ -51,142 +42,87 @@ DROP TABLE IF EXISTS menus;
 
 CREATE TABLE menus
 (
-
     id          INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
     name        VARCHAR(30)        NOT NULL,
-
     description VARCHAR(300)       NOT NULL,
-
     size        VARCHAR(30)        NOT NULL
-
 );
 
 CREATE TABLE orders
 (
-
     id     INT AUTO_INCREMENT                                     NOT NULL PRIMARY KEY,
-
     number VARCHAR(30)                                            NOT NULL UNIQUE,
-
     price  DECIMAL(10, 2)                                         NOT NULL,
-
     status ENUM ('en_attente', 'en_preparation', 'pret', 'livre') NOT NULL DEFAULT 'en_attente'
 
 );
 
 CREATE TABLE dishes
 (
-
     id           INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
     name         VARCHAR(30)        NOT NULL,
-
     description  VARCHAR(300)       NOT NULL,
-
     price        DECIMAL(10, 2)     NOT NULL,
-
     availability BOOLEAN            NOT NULL DEFAULT FALSE,
-
     size         VARCHAR(30)        NOT NULL
-
 );
 
 CREATE TABLE ingredients
 (
-
     id           INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-
     name         VARCHAR(30)        NOT NULL,
-
     description  VARCHAR(300)       NOT NULL,
-
     availability BOOLEAN            NOT NULL DEFAULT FALSE
-
 );
 
 -- -----------------------------------------------------
-
 -- Tables de liaison
-
 -- -----------------------------------------------------
 
 CREATE TABLE menus_has_dishes
 (
-
     id      INT AUTO_INCREMENT PRIMARY KEY,
-
     menu_id INT NOT NULL,
-
     dish_id INT NOT NULL,
-
     FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE,
-
     FOREIGN KEY (dish_id) REFERENCES dishes (id) ON DELETE CASCADE,
-
     UNIQUE (menu_id, dish_id)
-
 );
 
 CREATE TABLE orders_has_menus
 (
-
     id       INT AUTO_INCREMENT PRIMARY KEY,
-
     order_id INT NOT NULL,
-
     menu_id  INT NOT NULL,
-
     quantity INT NOT NULL DEFAULT 1,
-
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-
     FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE,
-
     UNIQUE (order_id, menu_id)
-
 );
 
 CREATE TABLE orders_has_dishes
 (
-
     id       INT AUTO_INCREMENT PRIMARY KEY,
-
     order_id INT NOT NULL,
-
     dish_id  INT NOT NULL,
-
     quantity INT NOT NULL DEFAULT 1,
-
     FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-
     FOREIGN KEY (dish_id) REFERENCES dishes (id) ON DELETE CASCADE,
-
     UNIQUE (order_id, dish_id)
-
 );
 
 CREATE TABLE dishes_has_ingredients
 (
-
     id            INT AUTO_INCREMENT PRIMARY KEY,
-
     dish_id       INT NOT NULL,
-
     ingredient_id INT NOT NULL,
-
     FOREIGN KEY (dish_id) REFERENCES dishes (id) ON DELETE CASCADE,
-
     FOREIGN KEY (ingredient_id) REFERENCES ingredients (id) ON DELETE CASCADE,
-
     UNIQUE (dish_id, ingredient_id)
-
 );
 
 -- -----------------------------------------------------
-
 -- Données menus
-
 -- -----------------------------------------------------
 
 INSERT INTO menus (name, description, size)
@@ -227,9 +163,7 @@ VALUES ('Menu Big Mac', 'Inclut un Big Mac, frites et boisson', 'Petit'),
        ('Menu McNuggets 9 pcs', 'Inclut 9 McNuggets, frites et boisson', 'Moyen');
 
 -- -----------------------------------------------------
-
 -- Données plats
-
 -- -----------------------------------------------------
 
 INSERT INTO dishes (name, description, price, availability, size)
@@ -267,9 +201,7 @@ VALUES ('Big Mac', 'Burger emblématique avec double steak, sauce spéciale, sal
        ('Coca-Cola Moyen', 'Boisson gazeuse', 3.00, TRUE, 'Moyen');
 
 -- -----------------------------------------------------
-
 -- Données ingrédients
-
 -- -----------------------------------------------------
 
 INSERT INTO ingredients (name, description, availability)
@@ -302,9 +234,7 @@ VALUES ('Pain burger', 'Pain utilisé pour les burgers', TRUE),
        ('Coca-Cola', 'Boisson gazeuse', TRUE);
 
 -- -----------------------------------------------------
-
 -- Relations plats <-> ingrédients
-
 -- -----------------------------------------------------
 
 INSERT INTO dishes_has_ingredients (dish_id, ingredient_id)
@@ -395,9 +325,7 @@ VALUES (1, 1),
        (15, 14);
 
 -- -----------------------------------------------------
-
 -- Relations menus <-> plats
-
 -- -----------------------------------------------------
 
 INSERT INTO menus_has_dishes (menu_id, dish_id)
@@ -546,9 +474,7 @@ VALUES (1, 1),
        (18, 15);
 
 -- -----------------------------------------------------
-
 -- Données commandes
-
 -- -----------------------------------------------------
 
 INSERT INTO orders (number, price, status)
@@ -557,9 +483,7 @@ VALUES ('CMD001', 15.00, 'en_preparation'),
        ('CMD002', 20.00, 'livre');
 
 -- -----------------------------------------------------
-
 -- Relations commandes <-> menus
-
 -- -----------------------------------------------------
 
 INSERT INTO orders_has_menus (order_id, menu_id, quantity)
@@ -570,9 +494,7 @@ VALUES (1, 1, 1),
        (2, 3, 2);
 
 -- -----------------------------------------------------
-
 -- Relations commandes <-> plats
-
 -- -----------------------------------------------------
 
 INSERT INTO orders_has_dishes (order_id, dish_id, quantity)
