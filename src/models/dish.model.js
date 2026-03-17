@@ -1,31 +1,19 @@
 /*
 
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   dish.model.js
-
 author              :   Samuel Theytaz
-
 collaborators       :   Joel Cunha Faria, Jason Edmonds
-
 creation date       :   12.03.2026
-
 modification date   :   12.03.2026
-
 version             :   1.0
-
 -----------------------------------------------------------------------------------------------------------------------
-
 Model for the dishes table.
 
 This file handles:
-
 - finding a dish by id
-
 - creating a dish
-
 - deleting a dish
-
 */
 
 const db = require('../config/database');
@@ -68,7 +56,6 @@ const Dish = {
     async findById(id) {
         const [rows] = await db.query(
             'SELECT * FROM dishes WHERE id = ?',
-
             [id]
         );
         if (rows.length === 0) {
