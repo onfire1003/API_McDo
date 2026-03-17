@@ -21,10 +21,13 @@ This file:
 const express = require('express');
 const app = express();
 const dishRoutes = require('./routes/dish.routes');
+const ingredientRoutes = require('./routes/ingredient.routes');
 
 app.use(express.json());
 
 app.use('/api/v1/dishes', dishRoutes);
+
+app.use('/api/v1/ingredients', ingredientRoutes);
 
 app.get('/', function (req, res) {
     return res.status(200).json({
