@@ -1,19 +1,18 @@
-"use strict";
-
-import mysql from "mysql2/promise";
-
-let con;
-
-try {
-    con = await mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "root",
-        database: "app_McDo",
+const mysql = require('mysql2/promise');
+const env = require('./env');
+const db = mysql.createPool({
+    host: env.dbHost,
+    user: env.dbUser,
+    password: env.dbPassword,
+    database: env.dbName,
+    waitForConnections: true,
+    connectionLimit: 10
+});
+db.query("SELECT 1")
+    .then(function () {
+        console.log("Connexion MySQL réussie");
+    })
+    .catch(function (error) {
+        console.error("Erreur connexion MySQL :", error);
     });
-} catch (err) {
-    console.error("failed to connect to database", err);
-    process.exit(1);
-}
-
-console.log("Connected to MySQL successfully");
+module.exports = db;
