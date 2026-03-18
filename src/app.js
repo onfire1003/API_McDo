@@ -6,8 +6,8 @@ file name           :   app.js
 author              :   Samuel Theytaz
 collaborators       :   Joel Cunha Faria, Jason Edmonds
 creation date       :   12.03.2026
-modification date   :   12.03.2026
-version             :   1.0
+modification date   :   18.03.2026
+version             :   0.2
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -21,11 +21,13 @@ This file:
 const express = require('express');
 const app = express();
 const dishRoutes = require('./routes/dish.routes');
+const orderRoutes = require('./routes/order.routes');
 const ingredientRoutes = require('./routes/ingredient.routes');
 
 app.use(express.json());
 
 app.use('/api/v1/dishes', dishRoutes);
+app.use('/api/v1/orders', orderRoutes);
 
 app.use('/api/v1/ingredients', ingredientRoutes);
 
