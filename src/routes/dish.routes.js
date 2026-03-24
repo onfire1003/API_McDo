@@ -1,67 +1,36 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   dish.routes.js
-author              :   Samuel Theytaz
-collaborators       :   Joel Cunha Faria, Jason Edmond
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
-modification date   :   12.03.2026
-version             :   1.1
-
+modification date   :   24.03.2026
+version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 
 Routes for dishes.
 This file handles:
 - checking that the dish route is active
-- creating a dish
-- deleting a dish
+- creating, updating, retrieving, and deleting dishes
 */
 
 const express = require('express');
 const router = express.Router();
-const Dish = require('../models/dish.model');
+const dishController = require('../controllers/dish.controller');
 
-router.get('/', function (req, res) {
-    return res.status(200).json({
-        message: 'Route dishes active'
-    });
-});
+// GET /api/v1/dishes
+router.get('/', dishController.getAllDishes);
 
-router.post('/', async function (req, res) {
-    try {
-        const newDish = await Dish.create(req.body);
-        return res.status(201).json(newDish);
-    } catch (error) {
-        if (error.statusCode) {
-            return res.status(error.statusCode).json({
-                error: error.message
-            });
-        }
+// GET /api/v1/dishes/:id
+router.get('/:id', dishController.getDishById);
 
-        return res.status(500).json({
-            error: 'Erreur lors de la création du plat'
-        });
-    }
-});
+// POST /api/v1/dishes
+router.post('/', dishController.createDish);
 
-router.delete('/:id', async function (req, res) {
-    try {
-        const deleted = await Dish.remove(req.params.id);
-        if (!deleted) {
-            return res.status(404).json({
-                error: 'Plat introuvable'
-            });
-        }
+// PUT /api/v1/dishes/:id
+router.put('/:id', dishController.updateDish);
 
-        return res.status(200).json({
-            message: 'Plat supprimé avec succès'
-        });
-    } catch (error) {
-        return res.status(500).json({
-            error: 'Erreur lors de la suppression du plat'
-        });
-    }
-});
+// DELETE /api/v1/dishes/:id
+router.delete('/:id', dishController.deleteDish);
 
 module.exports = router;
-

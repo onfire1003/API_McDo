@@ -1,12 +1,12 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
 
-file name           :   order.routes.js
+file name           :   order.service.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
-modification date   :   18.03.2026
-version             :   0.2
+modification date   :   24.03.2026
+version             :   1.0
 
 -----------------------------------------------------------------------------------------------------------------------
 */
@@ -27,7 +27,7 @@ async function getAllOrders() {
  * @returns {Promise<object|null>} The order, or null if not found
  */
 async function getOrderById(id) {
-    return await Order.findById(id);
+    return await Order.findByPk(id);
 }
 
 /**
@@ -36,7 +36,11 @@ async function getOrderById(id) {
  * @returns {Promise<object>} The newly created order
  */
 async function createOrder(data) {
-    return await Order.create(data.number, data.price, data.status);
+    return await Order.create({
+        number: data.number,
+        price: data.price,
+        status: data.status
+    });
 }
 
 /**
@@ -46,7 +50,17 @@ async function createOrder(data) {
  * @returns {Promise<object|null>} The updated order, or null if not found
  */
 async function updateOrder(id, data) {
-    return await Order.update(id, data.number, data.price, data.status);
+    const order = await Order.findByPk(id);
+
+    if (!order) return null;
+
+    await order.update({
+        number: data.number,
+        price: data.price,
+        status: data.status
+    });
+
+    return order;
 }
 
 /**
@@ -55,7 +69,12 @@ async function updateOrder(id, data) {
  * @returns {Promise<boolean>} True if deleted, false if not found
  */
 async function deleteOrder(id) {
-    return await Order.remove(id);
+    const order = await Order.findByPk(id);
+
+    if (!order) return false;
+
+    await order.destroy();
+    return true;
 }
 
 module.exports = {

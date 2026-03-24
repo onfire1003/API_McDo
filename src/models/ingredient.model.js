@@ -30,7 +30,7 @@ const Ingredient = sequelize.define('Ingredient', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    inStock: {
+    availability : {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true

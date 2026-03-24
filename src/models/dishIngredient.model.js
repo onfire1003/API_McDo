@@ -41,7 +41,7 @@ const DishIngredient = sequelize.define('DishIngredient', {
         defaultValue: 1
     }
 }, {
-    tableName: 'dish_ingredients',
+    tableName: 'dishes_has_ingredients',
     timestamps: false
 });
 
