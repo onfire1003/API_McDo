@@ -1,7 +1,7 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
 
-file name           :   order.routes.js
+file name           :   order.controller.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
@@ -100,3 +100,4 @@ module.exports = {
     updateOrder,
     deleteOrder
 };
+
