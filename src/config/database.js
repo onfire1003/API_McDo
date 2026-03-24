@@ -1,18 +1,18 @@
-const mysql = require('mysql2/promise');
+const { Sequelize } = require('sequelize');
 const env = require('./env');
-const db = mysql.createPool({
-    host: env.dbHost,
-    user: env.dbUser,
-    password: env.dbPassword,
-    database: env.dbName,
-    waitForConnections: true,
-    connectionLimit: 10
-});
-db.query("SELECT 1")
-    .then(function () {
-        console.log("Connexion MySQL réussie");
-    })
-    .catch(function (error) {
-        console.error("Erreur connexion MySQL :", error);
-    });
-module.exports = db;
+
+const sequelize = new Sequelize(
+    env.dbName,
+    env.dbUser,
+    env.dbPassword,
+    {
+        host: env.dbHost,
+        dialect: 'mysql'
+    }
+);
+
+sequelize.authenticate()
+    .then(() => console.log("Connexion Sequelize réussie"))
+    .catch(err => console.error("Erreur connexion :", err));
+
+module.exports = sequelize;
