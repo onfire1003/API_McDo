@@ -23,6 +23,7 @@ const OrderDish = sequelize.define('OrderDish', {
     orderId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'order_id',
         references: {
             model: Order,
             key: 'id'
@@ -32,6 +33,7 @@ const OrderDish = sequelize.define('OrderDish', {
     dishId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'dish_id',
         references: {
             model: Dish,
             key: 'id'
@@ -49,7 +51,7 @@ const OrderDish = sequelize.define('OrderDish', {
     indexes: [
         {
             unique: true,
-            fields: ['orderId', 'dishId']
+            fields: ['order_Id', 'dish_Id']
         }
     ]
 });
