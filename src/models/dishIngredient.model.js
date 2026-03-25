@@ -19,6 +19,11 @@ const Dish = require('./dish.model');
 const Ingredient = require('./ingredient.model');
 
 const DishIngredient = sequelize.define('DishIngredient', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     dishId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -36,11 +41,6 @@ const DishIngredient = sequelize.define('DishIngredient', {
             model: Ingredient,
             key: 'id'
         }
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 1
     }
 }, {
     tableName: 'dishes_has_ingredients',
