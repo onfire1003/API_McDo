@@ -22,6 +22,7 @@ const DishIngredient = sequelize.define('DishIngredient', {
     dishId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'dish_id',
         references: {
             model: Dish,
             key: 'id'
@@ -30,6 +31,7 @@ const DishIngredient = sequelize.define('DishIngredient', {
     ingredientId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'ingredient_id',
         references: {
             model: Ingredient,
             key: 'id'
@@ -42,7 +44,13 @@ const DishIngredient = sequelize.define('DishIngredient', {
     }
 }, {
     tableName: 'dishes_has_ingredients',
-    timestamps: false
+    timestamps: false,
+    indexes: [
+        {
+            unique: true,
+            fields: ['dish_Id', 'ingredient_id'],
+        }
+    ]
 });
 
 Dish.belongsToMany(Ingredient, { through: DishIngredient, foreignKey: 'dishId' });
