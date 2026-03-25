@@ -6,7 +6,7 @@ file name           :   app.js
 author              :   Samuel Theytaz
 collaborators       :   Joel Cunha Faria, Jason Edmonds
 creation date       :   12.03.2026
-modification date   :   18.03.2026
+modification date   :   25.03.2026
 version             :   0.2
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -23,6 +23,7 @@ const app = express();
 const dishRoutes = require('./routes/dish.routes');
 const orderRoutes = require('./routes/order.routes');
 const ingredientRoutes = require('./routes/ingredient.routes');
+const menuRoutes = require('./routes/menu.routes');
 const orderDishRoutes = require('./routes/orderDish.routes')
 const setupAssociations = require('./models/associations');
 
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use('/api/v1/dishes', dishRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/ingredients', ingredientRoutes);
+app.use('/api/v1/menus', menuRoutes);
 app.use('/api/v1/orders_has_dishes', orderDishRoutes);
 
 app.get('/', function (req, res) {
