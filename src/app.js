@@ -26,9 +26,10 @@ const ingredientRoutes = require('./routes/ingredient.routes');
 const menuRoutes = require('./routes/menu.routes');
 
 const orderDishRoutes = require('./routes/orderDish.routes')
-const orderMenu = require('./routes/orderMenu.routes')
-const setupAssociations = require('./models/associations');
+const orderMenuRoutes = require('./routes/orderMenu.routes')
 const dishIngredientRoutes = require('./routes/dishIngredient.routes');
+
+const setupAssociations = require('./models/associations');
 
 setupAssociations();
 app.use(express.json());
@@ -39,7 +40,8 @@ app.use('/api/v1/ingredients', ingredientRoutes);
 app.use('/api/v1/menus', menuRoutes);
 
 app.use('/api/v1/orders_has_dishes', orderDishRoutes);
-app.use('/api/v1/orders_has_menus', orderMenu);
+app.use('/api/v1/orders_has_menus', orderMenuRoutes);
+app.use('/api/v1/dishes_has_ingredients', dishIngredientRoutes);
 
 
 app.get('/', function (req, res) {
