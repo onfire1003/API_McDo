@@ -19,9 +19,15 @@ const Dish = require('./dish.model');
 const Ingredient = require('./ingredient.model');
 
 const DishIngredient = sequelize.define('DishIngredient', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     dishId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'dish_id',
         references: {
             model: Dish,
             key: 'id'
@@ -30,19 +36,21 @@ const DishIngredient = sequelize.define('DishIngredient', {
     ingredientId: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        field: 'ingredient_id',
         references: {
             model: Ingredient,
             key: 'id'
         }
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 1
     }
 }, {
     tableName: 'dishes_has_ingredients',
-    timestamps: false
+    timestamps: false,
+    indexes: [
+        {
+            unique: true,
+            fields: ['dish_Id', 'ingredient_id'],
+        }
+    ]
 });
 
 Dish.belongsToMany(Ingredient, { through: DishIngredient, foreignKey: 'dishId' });
