@@ -36,7 +36,7 @@ app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/ingredients', ingredientRoutes);
 app.use('/api/v1/menus', menuRoutes);
 app.use('/api/v1/orders_has_dishes', orderDishRoutes);
-app.use('/api/v1/dishes_has_ingredients', dishIngredientRoutes);
+
 
 app.get('/', function (req, res) {
     return res.status(200).json({
