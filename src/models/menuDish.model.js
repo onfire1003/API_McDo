@@ -7,7 +7,6 @@ creation date       :   24.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Menu = require('./menu.model');
