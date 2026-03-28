@@ -13,9 +13,12 @@ version             :   0.2
 const Order = require('./order.model');
 const Dish = require('./dish.model');
 const Menu = require('./menu.model');
+const Ingredient = require('./Ingredient.model');
 
 const OrderDish = require('./orderDish.model');
 const OrderMenu = require('./orderMenu.model');
+const DishIngredient = require('./dishIngredient.model');
+const MenuDish = require('./menuDish.model');
 
 function setupAssociations() {
     Order.belongsToMany(Dish, { through: OrderDish, foreignKey: 'orderId', otherKey: 'dishId' });
@@ -23,6 +26,12 @@ function setupAssociations() {
 
     Order.belongsToMany(Menu, { through: OrderMenu, foreignKey: 'orderId', otherKey: 'menuId' });
     Menu.belongsToMany(Order, { through: OrderMenu, foreignKey: 'menuId', otherKey: 'orderId'});
+
+    Dish.belongsToMany(Ingredient, { through: DishIngredient, foreignKey: 'dishId', otherKey: 'ingredientId' });
+    Ingredient.belongsToMany(Dish, { through: DishIngredient, foreignKey: 'ingredientId', otherKey: 'dishId'});
+
+    Menu.belongsToMany(Dish, { through: MenuDish, foreignKey: 'dishId', otherKey: 'menuId' });
+    Dish.belongsToMany(Menu, { through: MenuDish, foreignKey: 'menuId', otherKey: 'dishId'});
 }
 
 module.exports = setupAssociations;

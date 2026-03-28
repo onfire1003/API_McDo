@@ -48,7 +48,7 @@ const DishIngredient = sequelize.define('DishIngredient', {
     indexes: [
         {
             unique: true,
-            fields: ['dish_Id', 'ingredient_id'],
+            fields: ['dish_id', 'ingredient_id'],
         }
     ]
 });

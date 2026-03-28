@@ -4,19 +4,26 @@ file name           :   dish.service.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
-modification date   :   24.03.2026
+modification date   :   28.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
 
 const Dish = require('../models/dish.model');
+const Ingredient = require('../models/ingredient.model');
 
 /**
  * Retrieve all dishes.
  * @returns {Promise<object[]>} List of all dishes
  */
 async function getAllDishes() {
-    return await Dish.findAll();
+    return await Dish.findAll({        include: [
+            {
+                model: Ingredient,
+                through: { attributes: [] }
+            }
+        ]
+    });
 }
 
 /**
@@ -25,7 +32,14 @@ async function getAllDishes() {
  * @returns {Promise<object|null>} The dish, or null if not found
  */
 async function getDishById(id) {
-    return await Dish.findByPk(id);
+    return await Dish.findByPk(id, {
+        include: [
+            {
+                model: Ingredient,
+                through: { attributes: [] }
+            }
+        ]
+    });
 }
 
 /**
@@ -34,15 +48,27 @@ async function getDishById(id) {
  * @returns {Promise<object>} The newly created dish
  */
 async function createDish(data) {
-    return await Dish.create({
+    const dish = await Dish.create({
         name: data.name,
         description: data.description,
         price: data.price,
         availability: data.availability,
         size: data.size
     });
-}
 
+    if (data.ingredients) {
+        for (const i of data.ingredients) {
+            const ingredient = await Ingredient.findByPk(i.id);
+            if (ingredient) {
+                await dish.addIngredient(ingredient);
+            }
+        }
+    }
+
+    return await Dish.findByPk(dish.id, {
+        include: Ingredient
+    });
+}
 /**
  * Update an existing dish by its ID.
  * @param {number} id - The dish ID
@@ -62,7 +88,20 @@ async function updateDish(id, data) {
         size: data.size
     });
 
-    return dish;
+    if (data.ingredients) {
+        await dish.setIngredients([]); // reset
+
+        for (const i of data.ingredients) {
+            const ingredient = await Ingredient.findByPk(i.id);
+            if (ingredient) {
+                await dish.addIngredient(ingredient);
+            }
+        }
+    }
+
+    return await Dish.findByPk(id, {
+        include: Ingredient
+    });
 }
 
 /**

@@ -4,19 +4,27 @@ file name           :   menu.service.js
 author              :   Samuel Theytaz
 collaborators       :   Jason Edmonds, Joel Cunha Faria
 creation date       :   24.03.2026
-modification date   :   25.03.2026
+modification date   :   28.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
 
 const Menu = require('../models/menu.model');
+const Dish = require('../models/dish.model');
 
 /**
  * Retrieve all menus.
  * @returns {Promise<object[]>} List of all menus
  */
 async function getAllMenus() {
-    return await Menu.findAll();
+    return await Menu.findAll({
+        include: [
+            {
+                model: Dish,
+                through: { attributes: [] }
+            }
+        ]
+    });
 }
 
 /**
@@ -25,7 +33,14 @@ async function getAllMenus() {
  * @returns {Promise<object|null>} The menu, or null if not found
  */
 async function getMenuById(id) {
-    return await Menu.findByPk(id);
+    return await Menu.findByPk(id, {
+        include: [
+            {
+                model: Dish,
+                through: { attributes: [] }
+            }
+        ]
+    });
 }
 
 /**
@@ -34,10 +49,23 @@ async function getMenuById(id) {
  * @returns {Promise<object>} The newly created menu
  */
 async function createMenu(data) {
-    return await Menu.create({
+    const menu = await Menu.create({
         name: data.name,
         description: data.description,
         size: data.size
+    });
+
+    if (data.dishes) {
+        for (const d of data.dishes) {
+            const dish = await Dish.findByPk(d.id);
+            if (dish) {
+                await menu.addDish(dish);
+            }
+        }
+    }
+
+    return await Menu.findByPk(menu.id, {
+        include: Dish
     });
 }
 
@@ -58,7 +86,20 @@ async function updateMenu(id, data) {
         size: data.size
     });
 
-    return menu;
+    if (data.dishes) {
+        await menu.setDishes([]); // reset
+
+        for (const d of data.dishes) {
+            const dish = await Dish.findByPk(d.id);
+            if (dish) {
+                await menu.addDish(dish);
+            }
+        }
+    }
+
+    return await Menu.findByPk(id, {
+        include: Dish
+    });
 }
 
 /**

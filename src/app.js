@@ -32,8 +32,6 @@ const menuDishRoutes = require('./routes/menuDish.routes');
 
 const setupAssociations = require('./models/associations');
 
-const setupAssociations = require('./models/associations');
-
 setupAssociations();
 app.use(express.json());
 

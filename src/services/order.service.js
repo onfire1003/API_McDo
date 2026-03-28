@@ -5,20 +5,33 @@ file name           :   order.service.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
-modification date   :   24.03.2026
+modification date   :   28.03.2026
 version             :   1.0
 
 -----------------------------------------------------------------------------------------------------------------------
 */
 
 const Order = require('../models/order.model');
+const Dish = require('../models/dish.model');
+const Menu = require('../models/menu.model');
 
 /**
  * Retrieve all orders.
  * @returns {Promise<object[]>} List of all orders
  */
 async function getAllOrders() {
-    return await Order.findAll();
+    return await Order.findAll({
+        include: [
+            {
+                model: Dish,
+                through: { attributes: ['quantity'] }
+            },
+            {
+                model: Menu,
+                through: { attributes: ['quantity'] }
+            }
+        ]
+    });
 }
 
 /**
@@ -27,7 +40,18 @@ async function getAllOrders() {
  * @returns {Promise<object|null>} The order, or null if not found
  */
 async function getOrderById(id) {
-    return await Order.findByPk(id);
+    return await Order.findByPk(id, {
+        include: [
+            {
+                model: Dish,
+                through: { attributes: ['quantity'] }
+            },
+            {
+                model: Menu,
+                through: { attributes: ['quantity'] }
+            }
+        ]
+    });
 }
 
 /**
@@ -36,11 +60,37 @@ async function getOrderById(id) {
  * @returns {Promise<object>} The newly created order
  */
 async function createOrder(data) {
-    return await Order.create({
+    const order = await Order.create({
         number: data.number,
         price: data.price,
         status: data.status
     });
+
+    // Ajouter les plats
+    if (data.dishes) {
+        for (const d of data.dishes) {
+            const dish = await Dish.findByPk(d.id);
+            if (dish) {
+                await order.addDish(dish, {
+                    through: { quantity: d.quantity }
+                });
+            }
+        }
+    }
+
+    // Ajouter les menus
+    if (data.menus) {
+        for (const m of data.menus) {
+            const menu = await Menu.findByPk(m.id);
+            if (menu) {
+                await order.addMenu(menu, {
+                    through: { quantity: m.quantity }
+                });
+            }
+        }
+    }
+
+    return order;
 }
 
 /**
@@ -54,13 +104,45 @@ async function updateOrder(id, data) {
 
     if (!order) return null;
 
+    // 1. update des champs simples
     await order.update({
         number: data.number,
         price: data.price,
         status: data.status
     });
 
-    return order;
+    // 2. update des plats (REMPLACE tout)
+    if (data.dishes) {
+        await order.setDishes([]); // reset
+
+        for (const d of data.dishes) {
+            const dish = await Dish.findByPk(d.id);
+            if (dish) {
+                await order.addDish(dish, {
+                    through: { quantity: d.quantity }
+                });
+            }
+        }
+    }
+
+    // 3. update des menus (REMPLACE tout)
+    if (data.menus) {
+        await order.setMenus([]); // reset
+
+        for (const m of data.menus) {
+            const menu = await Menu.findByPk(m.id);
+            if (menu) {
+                await order.addMenu(menu, {
+                    through: { quantity: m.quantity }
+                });
+            }
+        }
+    }
+
+    // 4. retourner avec relations
+    return await Order.findByPk(id, {
+        include: [Dish, Menu]
+    });
 }
 
 /**

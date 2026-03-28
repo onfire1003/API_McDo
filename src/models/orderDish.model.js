@@ -51,7 +51,7 @@ const OrderDish = sequelize.define('OrderDish', {
     indexes: [
         {
             unique: true,
-            fields: ['order_Id', 'dish_Id']
+            fields: ['order_id', 'dish_id']
         }
     ]
 });
