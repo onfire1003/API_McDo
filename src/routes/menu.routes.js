@@ -17,20 +17,21 @@ This file handles:
 const express = require('express');
 const router = express.Router();
 const menuController = require('../controllers/menu.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
 // GET /api/v1/menus
-router.get('/', menuController.getAllMenus);
+router.get('/', authenticateToken, menuController.getAllMenus);
 
 // GET /api/v1/menus/:id
-router.get('/:id', menuController.getMenuById);
+router.get('/:id', authenticateToken, menuController.getMenuById);
 
 // POST /api/v1/menus
-router.post('/', menuController.createMenu);
+router.post('/', authenticateToken, menuController.createMenu);
 
 // PUT /api/v1/menus/:id
-router.put('/:id', menuController.updateMenu);
+router.put('/:id', authenticateToken, menuController.updateMenu);
 
 // DELETE /api/v1/menus/:id
-router.delete('/:id', menuController.deleteMenu);
+router.delete('/:id', authenticateToken, menuController.deleteMenu);
 
 module.exports = router;

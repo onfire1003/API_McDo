@@ -11,11 +11,12 @@ version             :   1.0
 const express = require('express');
 const router = express.Router();
 const menuDishesController = require('../controllers/menuDish.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
-router.get('/', menuDishesController.getAllMenuDishes);
-router.get('/:id', menuDishesController.getMenuDishById);
-router.post('/', menuDishesController.createMenuDish);
-router.put('/:id', menuDishesController.updateMenuDish);
-router.delete('/:id', menuDishesController.deleteMenuDish);
+router.get('/', authenticateToken, menuDishesController.getAllMenuDishes);
+router.get('/:id', authenticateToken, menuDishesController.getMenuDishById);
+router.post('/', authenticateToken, menuDishesController.createMenuDish);
+router.put('/:id', authenticateToken, menuDishesController.updateMenuDish);
+router.delete('/:id', authenticateToken, menuDishesController.deleteMenuDish);
 
 module.exports = router;

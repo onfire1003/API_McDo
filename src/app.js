@@ -30,6 +30,8 @@ const orderMenuRoutes = require('./routes/orderMenu.routes')
 const dishIngredientRoutes = require('./routes/dishIngredient.routes');
 const menuDishRoutes = require('./routes/menuDish.routes');
 
+const authRoutes = require('./routes/auth.routes');
+
 const setupAssociations = require('./models/associations');
 
 setupAssociations();
@@ -44,6 +46,8 @@ app.use('/api/v1/orders_has_dishes', orderDishRoutes);
 app.use('/api/v1/orders_has_menus', orderMenuRoutes);
 app.use('/api/v1/dishes_has_ingredients', dishIngredientRoutes);
 app.use('/api/v1/menus_has_dishes', menuDishRoutes);
+
+app.use('/api/v1/auth', authRoutes);
 
 app.get('/', function (req, res) {
     return res.status(200).json({

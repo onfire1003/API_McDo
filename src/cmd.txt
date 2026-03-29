@@ -1,0 +1,39 @@
+ORDERS:
+{
+  "number": "CMD008",
+  "price": 25.50,
+  "status": "en_attente",
+  "dishes": [
+    { "id": 1, "quantity": 2 },
+    { "id": 3, "quantity": 1 }
+  ],
+  "menus": [
+    { "id": 2, "quantity": 1 }
+  ]
+}
+
+
+Users:
+
+Créer un user exemple:
+
+POST http://localhost:3006/api/v1/auth/register
+{
+  "username": "usertest",
+  "email": "usertest@eduvaud.com",
+  "password": "Pa$$w0rd",
+  "role": "admin"
+}
+
+Se log dans un user
+
+POST http://localhost:3006/api/v1/auth/login
+{
+    "email": "usertest@eduvaud.com",
+    "password": "Pa$$w0rd"
+}
+
+
+pour utiliser token, Header:
+Key : Authorization
+Value : Bearer "le token"
