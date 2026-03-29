@@ -26,6 +26,10 @@ const Menu = sequelize.define('Menu', {
         type: DataTypes.STRING(300),
         allowNull: false
     },
+    price: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false
+    },
     size: {
         type: DataTypes.STRING(30),
         allowNull: false

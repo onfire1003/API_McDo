@@ -45,6 +45,7 @@ CREATE TABLE menus
     id          INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name        VARCHAR(30)        NOT NULL,
     description VARCHAR(300)       NOT NULL,
+    price        DECIMAL(10, 2)     NOT NULL,
     size        VARCHAR(30)        NOT NULL
 );
 
@@ -138,42 +139,33 @@ CREATE TABLE users (
 -- Données menus
 -- -----------------------------------------------------
 
-INSERT INTO menus (name, description, size)
-VALUES ('Menu Big Mac', 'Inclut un Big Mac, frites et boisson', 'Petit'),
+INSERT INTO menus (name, description, price, size)
+VALUES ('Menu Big Mac', 'Inclut un Big Mac, frites et boisson', 10.50, 'Petit'),
+       ('Menu Big Mac', 'Inclut un Big Mac, frites et boisson', 11.50, 'Moyen'),
 
-       ('Menu Big Mac', 'Inclut un Big Mac, frites et boisson', 'Moyen'),
+       ('Menu Double Big Mac', 'Inclut un Double Big Mac, frites et boisson', 12.00, 'Petit'),
+       ('Menu Double Big Mac', 'Inclut un Double Big Mac, frites et boisson', 13.00, 'Moyen'),
 
-       ('Menu Double Big Mac', 'Inclut un Double Big Mac, frites et boisson', 'Petit'),
+       ('Menu Cheeseburger Royal', 'Inclut un Cheeseburger Royal, frites et boisson', 9.50, 'Petit'),
+       ('Menu Cheeseburger Royal', 'Inclut un Cheeseburger Royal, frites et boisson', 10.50, 'Moyen'),
 
-       ('Menu Double Big Mac', 'Inclut un Double Big Mac, frites et boisson', 'Moyen'),
+       ('Menu McChicken', 'Inclut un McChicken, frites et boisson', 10.00, 'Petit'),
+       ('Menu McChicken', 'Inclut un McChicken, frites et boisson', 11.00, 'Moyen'),
 
-       ('Menu Cheeseburger Royal', 'Inclut un Cheeseburger Royal, frites et boisson', 'Petit'),
+       ('Menu Big Tasty Single', 'Inclut un Big Tasty Single, frites et boisson', 11.50, 'Petit'),
+       ('Menu Big Tasty Single', 'Inclut un Big Tasty Single, frites et boisson', 12.50, 'Moyen'),
 
-       ('Menu Cheeseburger Royal', 'Inclut un Cheeseburger Royal, frites et boisson', 'Moyen'),
+       ('Menu Big Tasty Double', 'Inclut un Big Tasty Double, frites et boisson', 13.50, 'Petit'),
+       ('Menu Big Tasty Double', 'Inclut un Big Tasty Double, frites et boisson', 14.50, 'Moyen'),
 
-       ('Menu McChicken', 'Inclut un McChicken, frites et boisson', 'Petit'),
+       ('Menu Filet-O-Fish', 'Inclut un Filet-O-Fish, frites et boisson', 10.00, 'Petit'),
+       ('Menu Filet-O-Fish', 'Inclut un Filet-O-Fish, frites et boisson', 11.00, 'Moyen'),
 
-       ('Menu McChicken', 'Inclut un McChicken, frites et boisson', 'Moyen'),
+       ('Menu McNuggets 6 pcs', 'Inclut 6 McNuggets, frites et boisson', 9.50, 'Petit'),
+       ('Menu McNuggets 6 pcs', 'Inclut 6 McNuggets, frites et boisson', 10.50, 'Moyen'),
 
-       ('Menu Big Tasty Single', 'Inclut un Big Tasty Single, frites et boisson', 'Petit'),
-
-       ('Menu Big Tasty Single', 'Inclut un Big Tasty Single, frites et boisson', 'Moyen'),
-
-       ('Menu Big Tasty Double', 'Inclut un Big Tasty Double, frites et boisson', 'Petit'),
-
-       ('Menu Big Tasty Double', 'Inclut un Big Tasty Double, frites et boisson', 'Moyen'),
-
-       ('Menu Filet-O-Fish', 'Inclut un Filet-O-Fish, frites et boisson', 'Petit'),
-
-       ('Menu Filet-O-Fish', 'Inclut un Filet-O-Fish, frites et boisson', 'Moyen'),
-
-       ('Menu McNuggets 6 pcs', 'Inclut 6 McNuggets, frites et boisson', 'Petit'),
-
-       ('Menu McNuggets 6 pcs', 'Inclut 6 McNuggets, frites et boisson', 'Moyen'),
-
-       ('Menu McNuggets 9 pcs', 'Inclut 9 McNuggets, frites et boisson', 'Petit'),
-
-       ('Menu McNuggets 9 pcs', 'Inclut 9 McNuggets, frites et boisson', 'Moyen');
+       ('Menu McNuggets 9 pcs', 'Inclut 9 McNuggets, frites et boisson', 11.50, 'Petit'),
+       ('Menu McNuggets 9 pcs', 'Inclut 9 McNuggets, frites et boisson', 12.50, 'Moyen');
 
 -- -----------------------------------------------------
 -- Données plats
