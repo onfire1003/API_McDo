@@ -132,7 +132,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
-    role ENUM('admin', 'user') NOT NULL DEFAULT 'user'
+    role ENUM('admin', 'cook', 'waiter', 'customer') NOT NULL DEFAULT 'customer'
 );
 
 -- -----------------------------------------------------
@@ -244,11 +244,31 @@ VALUES ('Pain burger', 'Pain utilisé pour les burgers', TRUE),
 
 INSERT INTO users (username, email, password, role)
 VALUES (
-    'py18uam',
-    'py18uam@eduvaud.com',
-    '$2b$10$uYABQ3HvpZ4t55SFALaRdO/GVq4MPZ2rtliEwk4DGsdj74umnPkRC',
-    'admin'
-);
+        'admin',
+        'admin@eduvaud.ch',
+        '$2b$10$uYABQ3HvpZ4t55SFALaRdO/GVq4MPZ2rtliEwk4DGsdj74umnPkRC',
+        'admin'
+    ),
+    (
+        'cook',
+        'cook@eduvaud.ch',
+        '$2b$10$uYABQ3HvpZ4t55SFALaRdO/GVq4MPZ2rtliEwk4DGsdj74umnPkRC',
+        'cook'
+    ),
+    (
+        'waiter',
+        'waiter@eduvaud.ch',
+        '$2b$10$uYABQ3HvpZ4t55SFALaRdO/GVq4MPZ2rtliEwk4DGsdj74umnPkRC',
+        'waiter'
+    ),
+    (
+       'customer',
+       'customer@eduvaud.ch',
+       '$2b$10$uYABQ3HvpZ4t55SFALaRdO/GVq4MPZ2rtliEwk4DGsdj74umnPkRC',
+       'customer'
+    );
+
+
 
 
 -- -----------------------------------------------------
