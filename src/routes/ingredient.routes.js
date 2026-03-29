@@ -17,11 +17,12 @@ const express = require('express');
 const router = express.Router();
 const ingredientController = require('../controllers/ingredient.controller');
 const authenticateToken = require('../middlewares/auth.middleware');
+const authorizeRoles = require("../middlewares/role.middleware");
 
-router.get('/', ingredientController.getAllIngredients);
-router.get('/:id', ingredientController.getIngredientById);
-router.post('/', ingredientController.createIngredient);
-router.put('/:id', ingredientController.updateIngredient);
-router.delete('/:id', ingredientController.deleteIngredient);
+router.get('/', authenticateToken, authorizeRoles('admin', 'cook', 'waiter'), ingredientController.getAllIngredients);
+router.get('/:id', authenticateToken, authorizeRoles('admin', 'cook', 'waiter'), ingredientController.getIngredientById);
+router.post('/', authenticateToken, authorizeRoles('admin', 'cook'), ingredientController.createIngredient);
+router.put('/:id', authenticateToken, authorizeRoles('admin', 'cook'), ingredientController.updateIngredient);
+router.delete('/:id', authenticateToken, authorizeRoles('admin', 'cook'), ingredientController.deleteIngredient);
 
 module.exports = router;

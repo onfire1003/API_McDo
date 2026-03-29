@@ -18,20 +18,21 @@ const express = require('express');
 const router = express.Router();
 const menuController = require('../controllers/menu.controller');
 const authenticateToken = require('../middlewares/auth.middleware');
+const authorizeRoles = require("../middlewares/role.middleware");
 
 // GET /api/v1/menus
-router.get('/', authenticateToken, menuController.getAllMenus);
+router.get('/', authenticateToken, authorizeRoles('admin', 'cook', 'waiter', 'customer'), menuController.getAllMenus);
 
 // GET /api/v1/menus/:id
-router.get('/:id', authenticateToken, menuController.getMenuById);
+router.get('/:id', authenticateToken, authorizeRoles('admin', 'cook', 'waiter', 'customer'), menuController.getMenuById);
 
 // POST /api/v1/menus
-router.post('/', authenticateToken, menuController.createMenu);
+router.post('/', authenticateToken, authorizeRoles('admin', 'cook'), menuController.createMenu);
 
 // PUT /api/v1/menus/:id
-router.put('/:id', authenticateToken, menuController.updateMenu);
+router.put('/:id', authenticateToken, authorizeRoles('admin', 'cook'), menuController.updateMenu);
 
 // DELETE /api/v1/menus/:id
-router.delete('/:id', authenticateToken, menuController.deleteMenu);
+router.delete('/:id', authenticateToken, authorizeRoles('admin', 'cook'), menuController.deleteMenu);
 
 module.exports = router;

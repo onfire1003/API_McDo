@@ -21,20 +21,21 @@ const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/order.controller');
 const authenticateToken = require('../middlewares/auth.middleware');
+const authorizeRoles = require("../middlewares/role.middleware");
 
 // GET /api/v1/orders
-router.get('/', authenticateToken, orderController.getAllOrders);
+router.get('/', authenticateToken, authorizeRoles('admin', 'cook', 'waiter', 'customer'), orderController.getAllOrders);
 
 // GET /api/v1/orders/:id
-router.get('/:id', authenticateToken, orderController.getOrderById);
+router.get('/:id', authenticateToken, authorizeRoles('admin', 'cook', 'waiter', 'customer'), orderController.getOrderById);
 
 // POST /api/v1/orders
-router.post('/', authenticateToken, orderController.createOrder);
+router.post('/', authenticateToken, authorizeRoles('admin', 'waiter', 'customer'), orderController.createOrder);
 
 // PUT /api/v1/orders/:id
-router.put('/:id', authenticateToken, orderController.updateOrder);
+router.put('/:id', authenticateToken, authorizeRoles('admin', 'waiter'), orderController.updateOrder);
 
 // DELETE /api/v1/orders/:id
-router.delete('/:id', authenticateToken, orderController.deleteOrder);
+router.delete('/:id', authenticateToken, authorizeRoles('admin', 'waiter'), orderController.deleteOrder);
 
 module.exports = router;
