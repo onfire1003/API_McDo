@@ -8,6 +8,7 @@
 ### librairie requise
 - sequelize : `npm install sequelize`
 - bcrypt : `npm install bcrypt`
+- bcryptjs : `npm install bcryptjs`
 - cookie-parser : `npm install cookie-parser`
 - dotenv : `npm install dotenv`
 - express : `npm install express`

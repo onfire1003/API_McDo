@@ -30,8 +30,8 @@ function setupAssociations() {
     Dish.belongsToMany(Ingredient, { through: DishIngredient, foreignKey: 'dishId', otherKey: 'ingredientId' });
     Ingredient.belongsToMany(Dish, { through: DishIngredient, foreignKey: 'ingredientId', otherKey: 'dishId'});
 
-    Menu.belongsToMany(Dish, { through: MenuDish, foreignKey: 'dishId', otherKey: 'menuId' });
-    Dish.belongsToMany(Menu, { through: MenuDish, foreignKey: 'menuId', otherKey: 'dishId'});
+    Menu.belongsToMany(Dish, { through: MenuDish, foreignKey: 'menuId', otherKey: 'dishId' });
+    Dish.belongsToMany(Menu, { through: MenuDish, foreignKey: 'dishId', otherKey: 'menuId' });
 }
 
 module.exports = setupAssociations;
