@@ -20,7 +20,7 @@ const Menu = require('../models/menu.model');
  * @returns {Promise<object[]>} List of all orders
  */
 async function getAllOrders() {
-    return await Order.findAll({
+    const orders = await Order.findAll({
         include: [
             {
                 model: Dish,
@@ -32,6 +32,24 @@ async function getAllOrders() {
             }
         ]
     });
+
+    for (const order of orders) {
+        let total = 0;
+
+        for (const dish of order.Dishes) {
+            const quantity = dish.OrderDish.quantity || 1;
+            total += parseFloat(dish.price) * quantity;
+        }
+
+        for (const menu of order.Menus) {
+            const quantity = menu.OrderMenu.quantity || 1;
+            total += parseFloat(menu.price) * quantity;
+        }
+
+        order.price = total; // overwrite sans DB
+    }
+
+    return orders;
 }
 
 /**
@@ -40,7 +58,7 @@ async function getAllOrders() {
  * @returns {Promise<object|null>} The order, or null if not found
  */
 async function getOrderById(id) {
-    return await Order.findByPk(id, {
+    const order = await Order.findByPk(id, {
         include: [
             {
                 model: Dish,
@@ -52,6 +70,57 @@ async function getOrderById(id) {
             }
         ]
     });
+
+    if (!order) return null;
+
+    let total = 0;
+
+    // Dishes
+    for (const dish of order.Dishes) {
+        const quantity = dish.OrderDish.quantity || 1;
+        total += parseFloat(dish.price) * quantity;
+    }
+
+    // Menus
+    for (const menu of order.Menus) {
+        const quantity = menu.OrderMenu.quantity || 1;
+        total += parseFloat(menu.price) * quantity;
+    }
+
+    order.price = total;
+
+    return order;
+}
+
+async function calculateOrderPrice(orderId) {
+    const order = await Order.findByPk(orderId, {
+        include: [
+            {
+                model: Dish,
+                through: { attributes: ['quantity'] }
+            },
+            {
+                model: Menu,
+                through: { attributes: ['quantity'] }
+            }
+        ]
+    });
+
+    let total = 0;
+
+    // Dishes
+    for (const dish of order.Dishes) {
+        const quantity = dish.OrderDish.quantity || 1;
+        total += parseFloat(dish.price) * quantity;
+    }
+
+    // Menus
+    for (const menu of order.Menus) {
+        const quantity = menu.OrderMenu.quantity || 1;
+        total += parseFloat(menu.price) * quantity;
+    }
+
+    return total;
 }
 
 /**
@@ -62,7 +131,7 @@ async function getOrderById(id) {
 async function createOrder(data) {
     const order = await Order.create({
         number: data.number,
-        price: data.price,
+        price: 0,
         status: data.status
     });
 
@@ -90,7 +159,13 @@ async function createOrder(data) {
         }
     }
 
-    return order;
+    // calcul du prix
+    const total = await calculateOrderPrice(order.id);
+    await order.update({ price: total });
+
+    return await Order.findByPk(order.id, {
+        include: [Dish, Menu]
+    });
 }
 
 /**
@@ -104,16 +179,14 @@ async function updateOrder(id, data) {
 
     if (!order) return null;
 
-    // 1. update des champs simples
     await order.update({
         number: data.number,
-        price: data.price,
         status: data.status
     });
 
-    // 2. update des plats (REMPLACE tout)
+    // Dishes
     if (data.dishes) {
-        await order.setDishes([]); // reset
+        await order.setDishes([]);
 
         for (const d of data.dishes) {
             const dish = await Dish.findByPk(d.id);
@@ -125,9 +198,9 @@ async function updateOrder(id, data) {
         }
     }
 
-    // 3. update des menus (REMPLACE tout)
+    // Menus
     if (data.menus) {
-        await order.setMenus([]); // reset
+        await order.setMenus([]);
 
         for (const m of data.menus) {
             const menu = await Menu.findByPk(m.id);
@@ -139,7 +212,10 @@ async function updateOrder(id, data) {
         }
     }
 
-    // 4. retourner avec relations
+    // recalcul
+    const total = await calculateOrderPrice(order.id);
+    await order.update({ price: total });
+
     return await Order.findByPk(id, {
         include: [Dish, Menu]
     });
