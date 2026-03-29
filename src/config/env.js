@@ -1,23 +1,13 @@
 /*
-
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   env.js
-
 author              :   Samuel Theytaz
-
 collaborators       :   Joel Cunha Faria, Jason Edmonds
-
 creation date       :   12.03.2026
-
-modification date   :   12.03.2026
-
+modification date   :   29.03.2026
 version             :   1.0
-
 -----------------------------------------------------------------------------------------------------------------------
-
 Environment variables loader.
-
 */
 
 require('dotenv').config();

@@ -1,4 +1,14 @@
-// user.model.js
+/*
+-----------------------------------------------------------------------------------------------------------------------
+file name           :   user.model.js
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   24.03.2026
+modification date   :   29.03.2026
+version             :   1.0
+-----------------------------------------------------------------------------------------------------------------------
+*/
+
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -23,8 +33,8 @@ const User = sequelize.define('User', {
         allowNull: false
     },
     role: {
-        type: DataTypes.ENUM('admin', 'user'),
-        defaultValue: 'user'
+        type: DataTypes.ENUM('admin', 'cook', 'waiter', 'customer'),
+        defaultValue: 'customer'
     }
 }, {
     tableName: 'users',

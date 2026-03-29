@@ -1,14 +1,11 @@
 /*
-
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   app.js
 author              :   Samuel Theytaz
 collaborators       :   Joel Cunha Faria, Jason Edmonds
 creation date       :   12.03.2026
-modification date   :   27.03.2026
-version             :   0.2
-
+modification date   :   29.03.2026
+version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 
 Main application file.
@@ -25,11 +22,6 @@ const orderRoutes = require('./routes/order.routes');
 const ingredientRoutes = require('./routes/ingredient.routes');
 const menuRoutes = require('./routes/menu.routes');
 
-const orderDishRoutes = require('./routes/orderDish.routes')
-const orderMenuRoutes = require('./routes/orderMenu.routes')
-const dishIngredientRoutes = require('./routes/dishIngredient.routes');
-const menuDishRoutes = require('./routes/menuDish.routes');
-
 const authRoutes = require('./routes/auth.routes');
 
 const setupAssociations = require('./models/associations');
@@ -41,11 +33,6 @@ app.use('/api/v1/dishes', dishRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/ingredients', ingredientRoutes);
 app.use('/api/v1/menus', menuRoutes);
-
-app.use('/api/v1/orders_has_dishes', orderDishRoutes);
-app.use('/api/v1/orders_has_menus', orderMenuRoutes);
-app.use('/api/v1/dishes_has_ingredients', dishIngredientRoutes);
-app.use('/api/v1/menus_has_dishes', menuDishRoutes);
 
 app.use('/api/v1/auth', authRoutes);
 

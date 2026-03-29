@@ -1,11 +1,11 @@
 /*
 -----------------------------------------------------------------------------------------------------------------------
-nom du fichier      :   create_database_insert_data.sql
-auteur              :   Joel Cunha Faria
-collaborateurs      :   Jason Edmonds, Samuel Theytaz
-date de création    :   04.03.2026
-date de modification:   12.03.2026
-version             :   1.1
+file name           :   create_database_insert_data.sql
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   04.03.2026
+modification date   :   29.03.2026
+version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
 
@@ -35,9 +35,7 @@ DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS menus;
 
 -- -----------------------------------------------------
-
 -- Tables principales
-
 -- -----------------------------------------------------
 
 CREATE TABLE menus

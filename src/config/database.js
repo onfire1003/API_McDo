@@ -1,3 +1,13 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------
+file name           :   auth.controller.js
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   04.03.2026
+modification date   :   29.03.2026
+version             :   1.0
+-----------------------------------------------------------------------------------------------------------------------
+*/
 const { Sequelize } = require('sequelize');
 const env = require('./env');
 

@@ -1,4 +1,13 @@
-// middlewares/auth.middleware.js
+/*
+-----------------------------------------------------------------------------------------------------------------------
+file name           :   auth.middleware.js
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   25.03.2026
+modification date   :   29.03.2026
+version             :   1.0
+-----------------------------------------------------------------------------------------------------------------------
+*/
 const jwt = require('jsonwebtoken');
 const env = require('../config/env');
 

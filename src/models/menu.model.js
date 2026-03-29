@@ -4,8 +4,8 @@ file name           :   menu.model.js
 author              :   Samuel Theytaz
 collaborators       :   Jason Edmonds, Joel Cunha Faria
 creation date       :   24.03.2026
-modification date   :   25.03.2026
-version             :   0.1
+modification date   :   29.03.2026
+version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
 

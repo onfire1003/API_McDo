@@ -1,4 +1,13 @@
-// controllers/auth.controller.js
+/*
+-----------------------------------------------------------------------------------------------------------------------
+file name           :   auth.model.js
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   25.03.2026
+modification date   :   29.03.2026
+version             :   1.0
+-----------------------------------------------------------------------------------------------------------------------
+*/
 const authService = require('../services/auth.service');
 
 async function register(req, res) {

@@ -1,16 +1,12 @@
 /*
-
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   dishIngredient.model.js
 author              :   Jason Edmonds
 collaborators       :   Joel Cunha Faria, Samuel Theytaz
 creation date       :   17.03.2026
-modification date   :   17.03.2026
+modification date   :   29.03.2026
 version             :   1.0
-
 -----------------------------------------------------------------------------------------------------------------------
-
 */
 
 const { DataTypes } = require('sequelize');
@@ -52,8 +48,5 @@ const DishIngredient = sequelize.define('DishIngredient', {
         }
     ]
 });
-
-Dish.belongsToMany(Ingredient, { through: DishIngredient, foreignKey: 'dishId' });
-Ingredient.belongsToMany(Dish, { through: DishIngredient, foreignKey: 'ingredientId' });
 
 module.exports = DishIngredient;

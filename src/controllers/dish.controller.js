@@ -4,7 +4,7 @@ file name           :   dish.controller.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   12.03.2026
-modification date   :   24.03.2026
+modification date   :   29.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */

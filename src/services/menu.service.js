@@ -4,7 +4,7 @@ file name           :   menu.service.js
 author              :   Samuel Theytaz
 collaborators       :   Jason Edmonds, Joel Cunha Faria
 creation date       :   24.03.2026
-modification date   :   28.03.2026
+modification date   :   29.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */

@@ -4,6 +4,7 @@ file name           :   orderDish.model.js
 author              :   Joel Cunha Faria
 collaborators       :   Jason Edmonds, Samuel Theytaz
 creation date       :   24.03.2026
+modification date   :   29.03.2026
 version             :   1.0
 -----------------------------------------------------------------------------------------------------------------------
 */
@@ -13,7 +14,6 @@ const sequelize = require('../config/database');
 const Order = require('./order.model');
 const Dish = require('./dish.model');
 
-// Modèle pivot orders_has_dishes
 const OrderDish = sequelize.define('OrderDish', {
     id: {
         type: DataTypes.INTEGER,

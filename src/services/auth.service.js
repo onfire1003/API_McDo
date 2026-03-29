@@ -1,4 +1,13 @@
-// services/auth.service.js
+/*
+-----------------------------------------------------------------------------------------------------------------------
+file name           :   auth.service.js
+author              :   Joel Cunha Faria
+collaborators       :   Jason Edmonds, Samuel Theytaz
+creation date       :   24.03.2026
+modification date   :   29.03.2026
+version             :   1.0
+-----------------------------------------------------------------------------------------------------------------------
+*/
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');

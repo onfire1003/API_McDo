@@ -1,16 +1,12 @@
 /*
-
 -----------------------------------------------------------------------------------------------------------------------
-
 file name           :   ingredient.controller.js
 author              :   Jason Edmonds
 collaborators       :   Joel Cunha Faria, Samuel Theytaz
 creation date       :   17.03.2026
-modification date   :   17.03.2026
+modification date   :   29.03.2026
 version             :   1.0
-
 -----------------------------------------------------------------------------------------------------------------------
-
 */
 
 const ingredientService = require('../services/ingredient.service');
