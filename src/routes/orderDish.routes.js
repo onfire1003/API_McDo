@@ -12,20 +12,21 @@ version             :   1.0
 const express = require('express');
 const router = express.Router();
 const orderDishesController = require('../controllers/orderDish.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
 // GET /api/v1/order-dishes
-router.get('/', orderDishesController.getAllOrderDishes);
+router.get('/', authenticateToken, orderDishesController.getAllOrderDishes);
 
 // GET /api/v1/order-dishes/:id
-router.get('/:id', orderDishesController.getOrderDishById);
+router.get('/:id', authenticateToken, orderDishesController.getOrderDishById);
 
 // POST /api/v1/order-dishes
-router.post('/', orderDishesController.createOrderDish);
+router.post('/', authenticateToken, orderDishesController.createOrderDish);
 
 // PUT /api/v1/order-dishes/:id
-router.put('/:id', orderDishesController.updateOrderDish);
+router.put('/:id', authenticateToken, orderDishesController.updateOrderDish);
 
 // DELETE /api/v1/order-dishes/:id
-router.delete('/:id', orderDishesController.deleteOrderDish);
+router.delete('/:id', authenticateToken, orderDishesController.deleteOrderDish);
 
 module.exports = router;

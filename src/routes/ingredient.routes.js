@@ -16,6 +16,7 @@ version             :   1.0
 const express = require('express');
 const router = express.Router();
 const ingredientController = require('../controllers/ingredient.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
 router.get('/', ingredientController.getAllIngredients);
 router.get('/:id', ingredientController.getIngredientById);

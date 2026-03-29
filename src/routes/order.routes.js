@@ -20,20 +20,21 @@ This file handles:
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/order.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
 // GET /api/v1/orders
-router.get('/', orderController.getAllOrders);
+router.get('/', authenticateToken, orderController.getAllOrders);
 
 // GET /api/v1/orders/:id
-router.get('/:id', orderController.getOrderById);
+router.get('/:id', authenticateToken, orderController.getOrderById);
 
 // POST /api/v1/orders
-router.post('/', orderController.createOrder);
+router.post('/', authenticateToken, orderController.createOrder);
 
 // PUT /api/v1/orders/:id
-router.put('/:id', orderController.updateOrder);
+router.put('/:id', authenticateToken, orderController.updateOrder);
 
 // DELETE /api/v1/orders/:id
-router.delete('/:id', orderController.deleteOrder);
+router.delete('/:id', authenticateToken, orderController.deleteOrder);
 
 module.exports = router;

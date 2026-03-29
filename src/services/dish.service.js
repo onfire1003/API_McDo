@@ -17,7 +17,8 @@ const Ingredient = require('../models/ingredient.model');
  * @returns {Promise<object[]>} List of all dishes
  */
 async function getAllDishes() {
-    return await Dish.findAll({        include: [
+    return await Dish.findAll({
+        include: [
             {
                 model: Ingredient,
                 through: { attributes: [] }

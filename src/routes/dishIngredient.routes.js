@@ -12,20 +12,21 @@ version             :   1.0
 const express = require('express');
 const router = express.Router();
 const dishIngredientController = require('../controllers/dishIngredient.controller');
+const authenticateToken = require('../middlewares/auth.middleware');
 
 // GET /api/v1/dish-ingredients
-router.get('/', dishIngredientController.getAllDishIngredients);
+router.get('/', authenticateToken, dishIngredientController.getAllDishIngredients);
 
 // GET /api/v1/dish-ingredients/:id
-router.get('/:id', dishIngredientController.getDishIngredientById);
+router.get('/:id', authenticateToken, dishIngredientController.getDishIngredientById);
 
 // POST /api/v1/dish-ingredients
-router.post('/', dishIngredientController.createDishIngredient);
+router.post('/', authenticateToken, dishIngredientController.createDishIngredient);
 
 // PUT /api/v1/dish-ingredients/:id
-router.put('/:id', dishIngredientController.updateDishIngredient);
+router.put('/:id', authenticateToken, dishIngredientController.updateDishIngredient);
 
 // DELETE /api/v1/dish-ingredients/:id
-router.delete('/:id', dishIngredientController.deleteDishIngredient);
+router.delete('/:id', authenticateToken, dishIngredientController.deleteDishIngredient);
 
 module.exports = router;
