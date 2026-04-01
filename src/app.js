@@ -15,6 +15,7 @@ This file:
 - loads the dish routes
 */
 
+const setupSwagger = require('./config/swagger');
 const express = require('express');
 const app = express();
 const dishRoutes = require('./routes/dish.routes');
@@ -26,6 +27,7 @@ const authRoutes = require('./routes/auth.routes');
 
 const setupAssociations = require('./models/associations');
 
+setupSwagger(app);
 setupAssociations();
 app.use(express.json());
 
